@@ -1,11 +1,11 @@
-// AddSaleRecordForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function AddSaleRecordForm({ onSubmit, customerCount }) {
+function AddSaleRecordForm({ onSubmit }) {
   const [itemPurchased, setItemPurchased] = useState('');
   const [purchaseAmount, setPurchaseAmount] = useState('');
   const [paymentMode, setPaymentMode] = useState('');
+  const [customerCount, setCustomerCount] = useState(1); // Initial customer count
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,19 +13,20 @@ function AddSaleRecordForm({ onSubmit, customerCount }) {
       alert('Please fill in all fields');
       return;
     }
-    const record = {
-      noOfCustomer: customerCount + 1,
-      itemPurchased,
-      purchaseAmount: parseFloat(purchaseAmount),
-      modeOfPayment: paymentMode,
-      datetime: formatDate(new Date())
-    };
     try {
-      await axios.post('http://localhost:3001/api/addSalesRecord', { dateKey: formatDate(new Date()), record });
+      const record = {
+        customerCount: customerCount,
+        itemPurchased: itemPurchased,
+        purchaseAmount: parseFloat(purchaseAmount),
+        paymentMode: paymentMode,
+        dateTime: formatDate(new Date())
+      };
+      await axios.post('http://localhost:3001/api/addSalesRecord', record);
       onSubmit(record);
       setItemPurchased('');
       setPurchaseAmount('');
       setPaymentMode('');
+      setCustomerCount(customerCount + 1); // Increment customer count
     } catch (error) {
       console.error('Failed to add sales record:', error);
       alert('Failed to add sales record. Please try again.');

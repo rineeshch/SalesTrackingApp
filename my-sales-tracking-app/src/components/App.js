@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1 className="header">Sales Tracking App</h1>
+      <h1 className="header">T-Logic Sales Tracking</h1>
       <AddSaleRecordForm onSubmit={addSaleRecord} customerCount={customerCount} /> {/* Pass customerCount */}
       <SalesRecordList records={records} />
       <TotalSale totalSale={totalSale} />
