@@ -25,17 +25,20 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const salesRecordSchema = new mongoose.Schema({
   dateKey: String,
   record: {
-    customerName: String,
-    itemsPurchased: String,
+    customerCount: Number,
+    itemPurchased: String,
     purchaseAmount: Number,
+    paymentMode: String,
+    dateTime: String,
   },
 });
 
 const SalesRecord = mongoose.model('SalesRecord', salesRecordSchema);
 
+
 app.post('/api/addSalesRecord', async (req, res) => {
-  const { dateKey, record } = req.body;
-  const newRecord = new SalesRecord({ dateKey, record });
+  const { customerCount, itemPurchased, purchaseAmount, paymentMode, dateTime } = req.body;
+  const newRecord = new SalesRecord({ customerCount, itemPurchased, purchaseAmount, paymentMode, dateTime });
   try {
     await newRecord.save();
     res.status(200).json({ message: 'Sales record added successfully' });
