@@ -16,7 +16,9 @@ function App() {
     setRecords(updatedRecords);
     const total = updatedRecords.reduce((acc, curr) => acc + curr.purchaseAmount, 0);
     setTotalSale(total);
+    setCustomerCount(customerCount + 1); // Increment customerCount
   };
+  
 
   return (
     <div className="container">
