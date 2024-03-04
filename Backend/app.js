@@ -22,6 +22,7 @@ async function connectToMongoDB() {
     // For example, you can insert a document
     const collection = db.collection('documents');
     await collection.insertOne({ name: 'Rineesh' });
+
     console.log('Document inserted');
 
   } catch (error) {

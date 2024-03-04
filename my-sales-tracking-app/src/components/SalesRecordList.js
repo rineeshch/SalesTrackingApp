@@ -1,34 +1,26 @@
-// SalesRecordList.js
 import React from 'react';
 
-const SalesRecordList = ({ records }) => {
+function SalesRecordList({ records }) {
+  if (!records) {
+    return null; // or you can return a loading indicator
+  }
+
   return (
-    <div className="sales-record-list">
+    <div>
       <h2>Sales Records</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>No. of Customer</th>
-            <th>Item Purchased</th>
-            <th>Purchase Amount</th>
-            <th>Mode of Payment</th>
-            <th>Date & Time</th>
-          </tr>
-        </thead>
-        <tbody>
+      <ul>
         {records.map((record, index) => (
-        <tr key={index}>
-        <td>{record.customerCount}</td>
-        <td>{record.itemPurchased}</td>
-        <td>{record.purchaseAmount}</td>
-        <td>{record.paymentMode}</td> {/* Use paymentMode instead of modeOfPayment */}
-        <td>{record.dateTime}</td>
-        </tr>
+          <li key={index}>
+            <p>Customer Count: {record.customerCount}</p>
+            <p>Item Purchased: {record.itemPurchased}</p>
+            <p>Purchase Amount: {record.purchaseAmount}</p>
+            <p>Payment Mode: {record.paymentMode}</p>
+            <p>Date & Time: {record.dateTime}</p>
+          </li>
         ))}
-        </tbody>
-      </table>
+      </ul>
     </div>
   );
-};
+}
 
 export default SalesRecordList;

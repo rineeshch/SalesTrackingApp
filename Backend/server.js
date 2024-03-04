@@ -47,6 +47,33 @@ app.post('/api/addSalesRecord', async (req, res) => {
   }
 });
 
+app.get('/api/test', (req, res) => {
+  const testData = {
+    message: 'This is a test message',
+    data: {
+      key1: 'value1',
+      key2: 'value2',
+      key3: 'value3'
+    }
+  };
+
+  res.status(200).json(testData);
+});
+
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  // Check if username and password are correct
+  const user = await db.collection('userrecords').findOne({ username, password });
+  if (user) {
+    // Authentication successful
+    res.status(200).json({ message: 'Login successful' });
+  } else {
+    // Authentication failed
+    res.status(401).json({ error: 'Invalid username or password' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

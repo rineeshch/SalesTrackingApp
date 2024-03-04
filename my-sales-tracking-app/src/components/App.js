@@ -1,31 +1,46 @@
-// App.js
 import React, { useState } from 'react';
 import AddSaleRecordForm from './AddSaleRecordForm';
 import SalesRecordList from './SalesRecordList';
 import TotalSale from './TotalSale';
+import LoginForm from './LoginForm';
 import './App.css';
 
-
 function App() {
-  const [records, setRecords] = useState([]);
-  const [totalSale, setTotalSale] = useState(0);
-  const [customerCount, setCustomerCount] = useState(0); // State to track customer count
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const addSaleRecord = (record) => {
-    const updatedRecords = [...records, record];
-    setRecords(updatedRecords);
-    const total = updatedRecords.reduce((acc, curr) => acc + curr.purchaseAmount, 0);
-    setTotalSale(total);
-    setCustomerCount(customerCount + 1); // Increment customerCount
-  };
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
   
+      if (response.ok) {
+        setIsLoggedIn(true);
+      } else {
+        alert('Invalid username or password');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('Login failed. Please try again.');
+    }
+  };  
 
   return (
     <div className="container">
       <h1 className="header">T-Logic Sales Tracking</h1>
-      <AddSaleRecordForm onSubmit={addSaleRecord} customerCount={customerCount} /> {/* Pass customerCount */}
-      <SalesRecordList records={records} />
-      <TotalSale totalSale={totalSale} />
+      {isLoggedIn ? (
+        <>
+          <AddSaleRecordForm />
+          <SalesRecordList />
+          <TotalSale />
+        </>
+      ) : (
+        <LoginForm onLogin={handleLogin} />
+      )}
     </div>
   );
 }
