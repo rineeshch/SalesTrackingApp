@@ -74,6 +74,15 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.get('/api/getSalesRecords', async (req, res) => {
+  try {
+    const salesRecords = await SalesRecord.find();
+    res.status(200).json(salesRecords);
+  } catch (err) {
+    console.error('Error fetching sales records:', err);
+    res.status(500).json({ error: 'Failed to fetch sales records' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
