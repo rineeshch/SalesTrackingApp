@@ -1,0 +1,23 @@
+.sales-record-list {
+    margin-top: 20px;
+  }
+  
+  .sales-record-list h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  

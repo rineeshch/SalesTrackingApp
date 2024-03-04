@@ -7,6 +7,7 @@ import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [salesRecords, setSalesRecords] = useState([]);
 
   const handleLogin = async (username, password) => {
     try {
@@ -17,7 +18,7 @@ function App() {
         },
         body: JSON.stringify({ username, password }),
       });
-  
+
       if (response.ok) {
         setIsLoggedIn(true);
       } else {
@@ -27,16 +28,20 @@ function App() {
       console.error('Login failed:', error);
       alert('Login failed. Please try again.');
     }
-  };  
+  };
+
+  const handleSubmit = async (record) => {
+    setSalesRecords([...salesRecords, record]); // Add new record to the list
+  };
 
   return (
     <div className="container">
       <h1 className="header">T-Logic Sales Tracking</h1>
       {isLoggedIn ? (
         <>
-          <AddSaleRecordForm />
-          <SalesRecordList />
-          <TotalSale />
+          <AddSaleRecordForm onSubmit={handleSubmit} />
+          <SalesRecordList salesRecords={salesRecords} />
+          <TotalSale salesRecords={salesRecords} />
         </>
       ) : (
         <LoginForm onLogin={handleLogin} />

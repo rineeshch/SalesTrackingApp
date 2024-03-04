@@ -1,24 +1,32 @@
 import React from 'react';
+import './SalesRecordList.css'; // Import CSS file for styling
 
-function SalesRecordList({ records }) {
-  if (!records) {
-    return null; // or you can return a loading indicator
-  }
-
+function SalesRecordList({ salesRecords }) {
   return (
-    <div>
+    <div className="sales-record-list">
       <h2>Sales Records</h2>
-      <ul>
-        {records.map((record, index) => (
-          <li key={index}>
-            <p>Customer Count: {record.customerCount}</p>
-            <p>Item Purchased: {record.itemPurchased}</p>
-            <p>Purchase Amount: {record.purchaseAmount}</p>
-            <p>Payment Mode: {record.paymentMode}</p>
-            <p>Date & Time: {record.dateTime}</p>
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Customer Count</th>
+            <th>Item Purchased</th>
+            <th>Amount</th>
+            <th>Payment Mode</th>
+            <th>Date & Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {salesRecords.map((record, index) => (
+            <tr key={index}>
+              <td>{record.customerCount}</td>
+              <td>{record.itemPurchased}</td>
+              <td>{record.purchaseAmount}</td>
+              <td>{record.paymentMode}</td>
+              <td>{record.dateTime}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

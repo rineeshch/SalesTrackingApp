@@ -1,8 +1,13 @@
-// TotalSale.js
 import React from 'react';
 
-function TotalSale({ totalSale }) {
-  return <div className="total-sale">Total Sale: ₹{totalSale}</div>;
+function TotalSale({ salesRecords }) {
+  const totalSale = salesRecords ? salesRecords.reduce((acc, record) => acc + record.purchaseAmount, 0) : 0;
+
+  return (
+    <div className="total-sale">
+      <p>Total Sale: {totalSale}</p>
+    </div>
+  );
 }
 
 export default TotalSale;
