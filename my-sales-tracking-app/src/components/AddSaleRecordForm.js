@@ -54,7 +54,12 @@ function AddSaleRecordForm({ onSubmit }) {
         <option value="">Select Item Purchased</option>
         <option value="Print">Print</option>
         <option value="Photostat">Photostat</option>
+        <option value="Online Service">Online Service</option>
         <option value="Lamination">Lamination</option>
+        <option value="Colour Print">Colour Print</option>
+        <option value="Pan Card">Pan Card</option>
+        <option value="Scan">Scan</option>
+        <option value="CV/Resume">CV/Resume</option>
         <option value="Other">Other</option>
       </select>
       <input
