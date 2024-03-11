@@ -2,7 +2,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-color: #f8f8f8;
+  color: #333;
 }
 
 .container {
@@ -15,10 +16,10 @@ body {
 }
 
 .header {
-  background-color: #333;
+  background-color: #007bff;
   color: white;
   text-align: center;
-  padding: 10px 0;
+  padding: 15px 0;
   margin-bottom: 20px;
   border-radius: 5px;
 }
@@ -45,7 +46,7 @@ body {
 .form select:focus,
 .form button:focus {
   outline: none;
-  border-color: #333;
+  border-color: #007bff;
 }
 
 .record-list {
@@ -75,18 +76,32 @@ body {
   color: #333;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+.button {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+.button:hover {
+  background-color: #0056b3;
 }
 
-th {
-  background-color: #f2f2f2;
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    border-radius: 0;
+  }
 }
