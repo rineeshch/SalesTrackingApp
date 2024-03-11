@@ -102,6 +102,35 @@ app.get('/api/getSalesRecords', async (req, res) => {
   }
 });
 
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+});
+
+// Existing code
+
+// Add a new route for signing up
+app.post('/api/signup', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Check if username already exists
+    const existingUser = await db.collection('userrecords').findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username already exists' });
+    }
+
+    // Create a new user record
+    await db.collection('userrecords').insertOne({ username, password });
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (err) {
+    console.error('Error creating user:', err);
+    res.status(500).json({ error: 'Failed to create user' });
+  }
+});
+
+
+// Remaining existing code
 
 
 
