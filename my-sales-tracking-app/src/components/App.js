@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import AddSaleRecordForm from './AddSaleRecordForm';
 import SalesRecordList from './SalesRecordList';
 import TotalSale from './TotalSale';
@@ -8,6 +11,7 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [salesRecords, setSalesRecords] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchSalesRecords = async () => {
@@ -39,6 +43,8 @@ function App() {
 
       if (response.ok) {
         setIsLoggedIn(true);
+        const userData = await response.json();
+        setUser(userData);
       } else {
         alert('Invalid username or password');
       }
@@ -48,13 +54,23 @@ function App() {
     }
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUser(null);
+  };
+
   const handleSubmit = async (record) => {
     setSalesRecords([...salesRecords, record]); // Add new record to the list
   };
 
   return (
     <div className="container">
-      <h1 className="header">T-Logic Sales Tracking</h1>
+      <h1 className="header">
+        T-Logic Sales Tracking
+        {isLoggedIn && (
+          <button className="logout" onClick={handleLogout}>Logout</button>
+        )}
+      </h1>
       {isLoggedIn ? (
         <>
           <AddSaleRecordForm onSubmit={handleSubmit} />

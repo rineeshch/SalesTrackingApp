@@ -19,9 +19,26 @@ body {
   background-color: #007bff;
   color: white;
   text-align: center;
-  padding: 15px 0;
+  padding: 15px 20px;
   margin-bottom: 20px;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout {
+  background-color: #dc3545; /* Bootstrap's danger color */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.logout:hover {
+  background-color: #c82333; /* Darken the color on hover */
 }
 
 .form {
