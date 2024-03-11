@@ -76,13 +76,35 @@ app.post('/api/login', async (req, res) => {
 
 app.get('/api/getSalesRecords', async (req, res) => {
   try {
-    const salesRecords = await SalesRecord.find();
+    const allSalesRecords = await SalesRecord.find({});
+    console.log('All sales records:', allSalesRecords);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
+    const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+    console.log('Formatted date:', formattedDate);
+
+    const salesRecords = allSalesRecords.filter(record => {
+      const recordDateParts = record.dateTime.split(',')[0].split('/');
+      const recordDate = new Date(`${recordDateParts[1]}/${recordDateParts[0]}/${recordDateParts[2]}`);
+      return (
+        recordDate.getDate() === today.getDate() &&
+        recordDate.getMonth() === today.getMonth() &&
+        recordDate.getFullYear() === today.getFullYear()
+      );
+    });
+    console.log('Sales records for today:', salesRecords);
+
     res.status(200).json(salesRecords);
   } catch (err) {
     console.error('Error fetching sales records:', err);
     res.status(500).json({ error: 'Failed to fetch sales records' });
   }
 });
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
